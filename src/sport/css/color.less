@@ -1,0 +1,89 @@
+
+:root {
+  --bg: #020318;
+  --primary-main: #ff0083;
+  --primary-sub: #376dfa;
+  --scrollbar: #2c52b0;
+}
+.bg {
+  background: var(--bg);
+}
+.bg-dark50 {
+  background-color: #1b222c;
+}
+.text-color {
+  color: #413b5b;
+}
+.active-bg {
+  background-color: #ff0083;
+}
+.active-border {
+  border: 1px solid #ff0083;
+}
+.active-color {
+  color: #ff0083 !important;
+}
+.primary-bg {
+  background-color: #241942;
+}
+.primary-dark-bg {
+  background-color: #0f0723;
+}
+.primary {
+  color: var(--primary-main);
+}
+.color-white {
+  color: #fff;
+}
+.linear-color {
+  background-image: linear-gradient(to right, var(--primary-main), var(--primary-sub));
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+.linear-bg {
+  background-image:linear-gradient(to right, var(--primary-main), var(--primary-sub));
+}
+.linear-border {
+  .content {
+    border: 1px solid transparent;
+    border-radius: 2px;
+    position: relative;
+    -webkit-background-clip: padding-box, border-box;
+    background-clip: padding-box, border-box;
+    color: #fff;
+    background-origin: padding-box, border-box;
+    background-image: linear-gradient(to right, var(--bg), var(--bg)), linear-gradient(90deg, #8F41E9, #578AEF);
+    transition: all 200ms linear;
+    cursor: pointer;
+    &:hover {
+      background-image: linear-gradient(to right, var(--bg), var(--bg)), linear-gradient(90deg, #9e75ce, #b5ef57);
+    }
+  }
+}
+
+.link {
+  color: #1890ff;
+  text-decoration: underline;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.color-blue {
+  color: #3B6FFC !important;
+}
+
+.gray {
+  color: #617199;
+}
+.grey {
+  color: #849EBF;
+}
+.gray-9 {
+  color: #98A8D2
+}
+.gray-9d {
+  color: #9D9EC1;
+}
