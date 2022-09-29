@@ -2,40 +2,79 @@
   <div class="pos-r">
     <!-- 顶部 header 的隐藏切换触发器 -->
     <div
-      @click="handleHeaderCollapse"
-      v-if="state.headerCollapse && showHeaderTrigger"
+      v-if="showHeaderTrigger && showHeader"
       class="headerCollapseIcon flex items-center justify-center"
+      @click="handleHeaderCollapse"
     >
       <CaretDownOutlined />
     </div>
 
-    <!-- 侧边栏 sider 隐藏切换触发器 -->
-    <div
-      @click="handleSiderCollapse"
-      v-if="state.siderCollapse && showSiderTrigger && state.sider === 0"
-      class="siderCollapseIcon flex items-center justify-center"
-    >
-      <CaretRightOutlined />
-    </div>
-
     <div class="flex body">
-      <article class="sider" :style="{ width: `${state.sider}px` }">
-        <slot name="sider"></slot>
-      </article>
-      <section class="overflow-x-hidden overflow-y-auto scrollbar flex-1">
+      <a-layout-sider
+        v-model:collapsed="state.siderCollapse"
+        v-if="showSider"
+        :class="{ [`siderPane-${getTheme}`]: true }"
+        :theme="getTheme"
+        :collapsedWidth="collapsedWidth"
+        :trigger="null"
+        collapsible
+      >
+        <slot
+          name="logo"
+          v-bind="{ collapsed: state.siderCollapse, theme: getTheme }"
+        ></slot>
+        <slot
+          name="sider"
+          v-bind="{
+            collapsed: state.siderCollapse,
+            theme: getSiderTheme,
+            bg: getSiderBg,
+            color: getSiderColor,
+          }"
+        ></slot>
+        <!-- 侧边栏触发器 -->
+        <div
+          v-if="showSiderTrigger && showSider"
+          class="siderCollapseIcon flex items-center justify-center"
+          :class="{ [`collapseIcon-${getTheme}`]: true }"
+          @click="handleSiderCollapse"
+        >
+          <CaretRightOutlined
+            class="trans"
+            :class="{ rotate: state.siderCollapse }"
+          />
+        </div>
+      </a-layout-sider>
+      <section class="overflow-hidden flex-1">
+        <!-- 顶部 header 的隐藏切换触发器 -->
+        <!-- <div
+          v-if="showHeaderTrigger && showHeader"
+          class="headerCollapseIcon flex items-center justify-center"
+          @click="handleHeaderCollapse"
+        >
+          <CaretUpOutlined
+            class="trans"
+            :class="{ rotate: state.headerCollapse }"
+          />
+        </div> -->
         <header
           class="header flex items-center"
-          :style="{ height: `${state.height}px` }"
+          :class="{ [`headerPane-${getHeaderTheme}`]: true }"
+          :style="{
+            height: `${state.height}px`,
+            background: getHeaderBg,
+            color: getHeaderColor,
+          }"
         >
           <div class="flex-1 h-100p">
-            <slot name="header"></slot>
+            <slot name="header" v-bind="{ theme: getHeaderTheme }"></slot>
           </div>
           <div class="extraIcon flex-0">
-            <slot name="headerExtra"></slot>
+            <slot name="headerExtra" v-bind="{ theme: getHeaderTheme }"></slot>
           </div>
         </header>
         <div
-          class="trans"
+          class="trans bg-grey"
           :style="{ height: `calc(100vh - ${state.height}px)` }"
         >
           <slot></slot>
@@ -46,33 +85,25 @@
 </template>
 
 <script>
-import { defineComponent, reactive, watch } from "vue";
-import { CaretDownOutlined, CaretRightOutlined } from "@ant-design/icons-vue";
+import { defineComponent } from "vue";
+import {
+  CaretDownOutlined,
+  CaretRightOutlined,
+  CaretUpOutlined,
+} from "@ant-design/icons-vue";
 import uselayout from "./useLayout";
+import CommonProps from "./commonProps";
 
 export default defineComponent({
   components: {
     CaretDownOutlined,
     CaretRightOutlined,
+    CaretUpOutlined,
   },
   props: {
-    showHeaderTrigger: {
-      type: Boolean,
-      default: true,
-    },
-    showSiderTrigger: {
-      type: Boolean,
-      default: true,
-    },
-    headerHeight: {
-      type: Number,
-      default: 60,
-    },
-    siderWidth: {
-      type: Number,
-      default: 200,
-    },
+    ...CommonProps,
   },
+  emits: ["udpate:siderCollapse", "update:headerCollapse"],
   setup(props, { emit, expose }) {
     const layout = uselayout(props, { emit, expose });
     return {
@@ -89,6 +120,14 @@ export default defineComponent({
   transition: all 150ms linear;
   overflow: hidden;
 }
+.headerPane-light {
+  border-bottom: 1px solid #eee;
+  box-shadow: 0 1px solid #eee;
+}
+.headerPane-dark {
+  border-bottom: 1px solid #333;
+  box-shadow: 0 1px solid #333;
+}
 .trans {
   transition: all 150ms linear;
 }
@@ -102,19 +141,19 @@ export default defineComponent({
 }
 .triggerIcon {
   position: absolute;
-
-  background: #fff;
+  // background: #fff;
   border-bottom-left-radius: 4px;
   border-bottom-right-radius: 4px;
   transition: all 100ms linear;
-  &:hover {
-    color: #fff;
-    background: #999;
-  }
+  // &:hover {
+  //   color: #fff;
+  //   background: #999;
+  // }
 }
 .headerCollapseIcon {
   .triggerIcon;
-  width: 80px;
+  width: 40px;
+  font-size: 12px;
   height: 12px;
   top: 0;
   left: 50%;
@@ -123,11 +162,33 @@ export default defineComponent({
 .siderCollapseIcon {
   .triggerIcon;
   width: 10px;
-  height: 60px;
+  height: 40px;
+  right: -10px;
   border-bottom-left-radius: 0;
   border-top-right-radius: 4px;
   top: 50%;
-  left: 0;
+  font-size: 12px;
   transform: translateY(-50%);
+}
+.commonSider {
+  z-index: 1;
+}
+.siderPane-light {
+  border-right: 1px solid #eee;
+  box-shadow: 0 0 5px #eee;
+  .commonSider;
+}
+.siderPane-dark {
+  .commonSider;
+  border-right: 1px solid #333;
+  box-shadow: 0 0 5px #333;
+}
+.collapseIcon-dark {
+  background: #333;
+  color: #fff;
+}
+.collapseIcon-light {
+  background: #fff;
+  color: #333;
 }
 </style>

@@ -1,15 +1,34 @@
 <template>
-  <div>
-    <component v-bind="$attrs" :is="state.layout">
-      <template #header>
-        <slot name="header"></slot>
+  <div @click.meta="handleKeyPress">
+    <component
+      v-bind="$attrs"
+      :siderCollapse="siderCollapse"
+      :is="state.layout"
+      ref="layoutRef"
+    >
+      <template #header="{ collapsed, theme }">
+        <slot
+          name="header"
+          v-bind="{ collapsed, theme, layout: state.layout }"
+        ></slot>
+      </template>
+      <template #logo="{ collapsed, theme }">
+        <slot
+          name="logo"
+          v-bind="{ collapsed, theme, layout: state.layout }"
+        ></slot>
       </template>
       <template #headerExtra>
-        <setting-outlined v-if="showConfig" @click="handleOpenDrawer" />
-        <slot name="headerExtra"></slot>
+        <slot
+          name="headerExtra"
+          v-bind="{ theme: state.theme, layout: state.layout }"
+        ></slot>
       </template>
-      <template #sider>
-        <slot name="sider"></slot>
+      <template #sider="{ collapsed, theme }">
+        <slot
+          name="sider"
+          v-bind="{ collapsed, theme, layout: state.layout }"
+        ></slot>
       </template>
       <template #default>
         <slot></slot>
@@ -20,16 +39,22 @@
       v-model:visible="state.visible"
       :layout="state.layout"
       @ok="handleConfirmDrawer"
-    />
+    >
+      <div class="pr-8">
+        系统主题色
+        <ThemeSwitch v-model:theme="state.theme" />
+      </div>
+    </Drawer>
   </div>
 </template>
 
 <script>
-import { defineComponent, reactive } from "vue";
+import { ref, defineComponent, reactive, provide, computed, watch } from "vue";
+import { SettingOutlined } from "@ant-design/icons-vue";
 import TopBottomLayout from "./top-bottom.vue";
 import LeftRightLayout from "./left-right.vue";
 import Drawer from "./drawer.vue";
-import { SettingOutlined } from "@ant-design/icons-vue";
+import ThemeSwitch from "./theme-switch.vue";
 
 export default defineComponent({
   components: {
@@ -37,30 +62,85 @@ export default defineComponent({
     lr: LeftRightLayout,
     Drawer,
     SettingOutlined,
+    ThemeSwitch,
   },
   props: {
     showConfig: {
       type: Boolean,
     },
+    siderCollapse: {
+      type: Boolean,
+    },
   },
-  setup(props) {
+  emits: ["update:siderCollapse"],
+  setup(props, { emit, expose }) {
+    const layoutRef = ref();
     const state = reactive({
-      layout: "tb", // tb 上下布局  lr 左右布局
+      layout: "lr", // tb 上下布局  lr 左右布局
       visible: false,
+      theme: "dark",
+      siderCollapse: false,
     });
-
     const handleOpenDrawer = () => {
       state.visible = true;
     };
-
-    const handleConfirmDrawer = (e) => {
+    const handleConfirmDrawer = (/** @type {{ layout: string; }} */ e) => {
       state.layout = e.layout;
     };
 
+    // watch(
+    //   () => props.siderCollapse,
+    //   n => {
+    //     // @ts-ignore
+    //     state.siderCollapse = n
+    //   },
+    //   {
+    //     immediate: true
+    //   }
+    // )
+    // watch(
+    //   () => state.siderCollapse,
+    //   n => {
+    //     emit(`update:siderCollapse`, n)
+    //   }
+    // )
+
+    const getTheme = computed(() => state.theme);
+
+    // const colorState = reactive({
+    //   primaryColor: '#1890ff',
+    //   errorColor: '#ff4d4f',
+    //   warningColor: '#faad14',
+    //   successColor: '#52c41a',
+    //   infoColor: '#1890ff'
+    // })
+
+    // const onColorChange = (type: string, e: any) => {
+    //   Object.assign(colorState, { [type]: e.target.value })
+    //   ConfigProvider.config({
+    //     theme: colorState
+    //   })
+    // }
+
+    provide("LAYOUT", {
+      theme: getTheme,
+      changeTheme: (/** @type {string} */ e) => {
+        state.theme = e;
+      },
+      handleHeaderCollpase: layoutRef.value?.handleHeaderCollpase,
+      handleSiderCollpase: layoutRef.value?.handleSiderCollpase,
+      handleGetCollapse: layoutRef.value?.handleGetCollapse,
+    });
+
+    const handleKeyPress = (/** @type {any} */ e) => {
+      state.visible = !state.visible;
+    };
     return {
       state,
       handleOpenDrawer,
       handleConfirmDrawer,
+      layoutRef,
+      handleKeyPress,
     };
   },
 });

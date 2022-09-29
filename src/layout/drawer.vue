@@ -40,6 +40,8 @@
         </div>
       </div>
 
+      <slot></slot>
+
       <div class="footer flex items-center justify-between">
         <a-button @click="state.visible = false">取消</a-button>
         <a-button type="primary" @click="handleConfirm">确定</a-button>
@@ -50,7 +52,6 @@
 
 <script>
 import { defineComponent, reactive, watch } from "vue";
-
 export default defineComponent({
   components: {},
   props: {
@@ -63,13 +64,12 @@ export default defineComponent({
       default: "tb",
     },
   },
-  emits: ["update:visible"],
-  setup(props, { emit, expose }) {
+  emits: ["update:visible", "ok"],
+  setup(props, { emit }) {
     const state = reactive({
       visible: false,
       layout: "tb",
     });
-
     watch(
       () => props.visible,
       (n) => {
@@ -88,18 +88,15 @@ export default defineComponent({
         emit("update:visible", n);
       }
     );
-
-    const handleSelectLayout = (e) => {
+    const handleSelectLayout = (/** @type {string} */ e) => {
       state.layout = e;
     };
-
     const handleConfirm = () => {
       state.visible = false;
       emit("ok", {
         layout: state.layout,
       });
     };
-
     return {
       state,
       handleConfirm,
