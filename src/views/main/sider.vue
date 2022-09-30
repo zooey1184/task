@@ -1,6 +1,6 @@
 <template>
   <Menu
-    :menuList="state.menuList"
+    :menuList="menuList"
     mode="inline"
     :theme="theme"
     :style="getSiderStyle"
@@ -14,6 +14,7 @@ import { CrownOutlined } from "@ant-design/icons-vue";
 import { getMenu } from "@/api/menu";
 import Menu from "@/components/menu";
 import { useRouter } from "vue-router";
+import { systemMenu } from "@/router/routes";
 
 export default defineComponent({
   components: {
@@ -37,13 +38,21 @@ export default defineComponent({
       active: [],
     });
     const getSiderStyle = computed(() => {
-      console.log(props.color, "===");
       return {
         background: props.bg ?? undefined,
         color: props.color ?? undefined,
       };
     });
     const router = useRouter();
+
+    const menuList = computed(() =>
+      // @ts-ignore
+      systemMenu
+        .map((item) => {
+          return item.options;
+        })
+        .flat()
+    );
 
     const handleChangeMenu = (e) => {
       router.push({
@@ -64,14 +73,21 @@ export default defineComponent({
     );
 
     onBeforeMount(() => {
-      getMenu().then((res) => {
-        state.menuList = res;
-        state.active = [res[0].children[0].key];
-      });
+      // getMenu().then((res) => {
+      //   state.menuList = res;
+      //   state.active = [res[0].children[0].key];
+      // });
+      state.menuList = [
+        {
+          title: "用户",
+          key: "user",
+        },
+      ];
     });
 
     return {
       state,
+      menuList,
       getSiderStyle,
       handleChangeMenu,
     };

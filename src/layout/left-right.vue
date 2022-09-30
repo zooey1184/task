@@ -46,17 +46,6 @@
         </div>
       </a-layout-sider>
       <section class="overflow-hidden flex-1">
-        <!-- 顶部 header 的隐藏切换触发器 -->
-        <!-- <div
-          v-if="showHeaderTrigger && showHeader"
-          class="headerCollapseIcon flex items-center justify-center"
-          @click="handleHeaderCollapse"
-        >
-          <CaretUpOutlined
-            class="trans"
-            :class="{ rotate: state.headerCollapse }"
-          />
-        </div> -->
         <header
           class="header flex items-center"
           :class="{ [`headerPane-${getHeaderTheme}`]: true }"
@@ -103,7 +92,7 @@ export default defineComponent({
   props: {
     ...CommonProps,
   },
-  emits: ["udpate:siderCollapse", "update:headerCollapse"],
+  emits: ["update:siderCollapse", "update:headerCollapse"],
   setup(props, { emit, expose }) {
     const layout = uselayout(props, { emit, expose });
     return {

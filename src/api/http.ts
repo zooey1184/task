@@ -27,7 +27,7 @@ const http = (options: any) => {
   }
   const token = window.localStorage.getItem('access_token')
   if (token) {
-    header.access_token = token
+    header.token = token
   }
   if (options.header) {
     Object.assign(header, options.header)

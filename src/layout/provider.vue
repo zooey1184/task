@@ -127,8 +127,11 @@ export default defineComponent({
       changeTheme: (/** @type {string} */ e) => {
         state.theme = e;
       },
-      handleHeaderCollpase: layoutRef.value?.handleHeaderCollpase,
-      handleSiderCollpase: layoutRef.value?.handleSiderCollpase,
+      handleHeaderCollapse: layoutRef.value?.handleHeaderCollapse,
+      handleSiderCollapse: () => {
+        const l = layoutRef.value;
+        l?.handleSiderCollapse();
+      },
       handleGetCollapse: layoutRef.value?.handleGetCollapse,
     });
 

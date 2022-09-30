@@ -56,14 +56,14 @@ const useLayout = (props, { emit, expose }) => {
   
 
   const handleHeaderCollapse = (flag) => {
-    if (typeof flag !== 'undefined') {
+    if (typeof flag === 'undefined') {
       state.headerCollapse = !state.headerCollapse
     } else {
       state.headerCollapse = flag
     }
   }
   const handleSiderCollapse = (flag) => {
-    if (typeof flag !== 'undefined') {
+    if (typeof flag === 'undefined') {
       state.siderCollapse = !state.siderCollapse
     } else {
       state.siderCollapse = flag
@@ -121,7 +121,7 @@ const useLayout = (props, { emit, expose }) => {
     handleGetCollapse: () => {
       return {
         sider: state.siderCollapse,
-        header: state.handleSiderCollapse
+        header: state.headerCollapse
       }
     }
   })

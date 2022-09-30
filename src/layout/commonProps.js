@@ -4,7 +4,7 @@ export default {
    */
   showHeaderTrigger: {
     type: Boolean,
-    default: true
+    // default: true
   },
   headerCollapse: {
     type: Boolean,
@@ -36,7 +36,7 @@ export default {
    */
   showSiderTrigger: {
     type: Boolean,
-    default: true
+    // default: true
   },
   showSider: {
     type: Boolean,
