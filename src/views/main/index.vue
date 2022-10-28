@@ -2,8 +2,7 @@
   <Layout :siderWidth="250" headerTheme="light">
     <template #logo="{ collapsed }">
       <div class="color-white logoWrap">
-        <img src="@/images/logo.svg" class="logo" alt="" />
-        <div class="ml-16 adminTip" v-if="!collapsed">后台管理系统</div>
+        <div class="ml-16 adminTip" v-if="!collapsed">TASK管理系统</div>
       </div>
     </template>
     <template #header>

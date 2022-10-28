@@ -12,71 +12,27 @@ const microRoutes = [
         name: SYSTEM,
         children: [
           {
-            title: '用户',
-            key: 'user',
+            title: '项目管理',
+            key: 'project',
             icon: 'FolderOpenOutlined',
             children: [
               {
-                path: 'userList',
-                name: 'userList',
+                path: 'gantt',
+                name: 'gantt',
                 icon: 'FileTextOutlined',
-                component: () => import('@/views/user/list.vue'),
-                meta: {title: '用户列表', keepAlive: false}
+                component: () => import('@/views/project/gante.vue'),
+                meta: {title: '任务甘特' }
+              },
+              {
+                path: 'kanban',
+                name: 'kanban',
+                icon: 'FileTextOutlined',
+                component: () => import('@/views/project/kanban.vue'),
+                meta: {title: '任务看板' }
               },
             ]
           },
-          {
-            title: '管理',
-            key: 'admin',
-            icon: "FolderOpenOutlined",
-            children: [
-              {
-                path: 'adminList',
-                name: 'adminList',
-                icon: 'FileTextOutlined',
-                component: () => import('@/views/admin/list.vue'),
-                meta: {
-                  title: '管理员列表'
-                }
-              }
-            ]
-          },
-          {
-            title: '订单',
-            key: 'order',
-            icon: 'FolderOpenOutlined',
-            children: [
-              {
-                path: 'orderList',
-                name: 'orderList',
-                icon: 'FileTextOutlined',
-                component: ()=> import('@/views/order/list.vue'),
-                meta: {title: '订单管理'}
-              },
-              {
-                path: 'orderReback',
-                name: 'orderReback',
-                icon: 'FileTextOutlined',
-                meta: {
-                  title: '订单退款'
-                }
-              }
-            ]
-          }
-          // {
-          //   title: '权限管理',
-          //   key: 'permission',
-          //   icon: 'FolderOpenOutlined',
-          //   children: [
-          //     {
-          //       path: 'interface',
-          //       name: 'microInterface',
-          //       icon: 'FileTextOutlined',
-          //       component: () => import('@/views/permission/interface/index.vue'),
-          //       meta: {title: '接口管理', keepAlive: false, allowNewWindow: true}
-          //     },
-          //   ]
-          // }
+          
         ]
       },
     ],
