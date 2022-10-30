@@ -5,30 +5,36 @@
     </div>
     <div class="right overflow-auto scrollbar">
       <div class="time flex items-center">
-        <div v-for='item in 50' class="timeItem flex-0">{{item}}</div>
-        
+        <div v-for="item in 50" class="timeItem flex-0">{{ item }}</div>
       </div>
       <div class="flex items-center" style="height: 26px">
-        <div v-for='item in 50' class="timeItem flex-0 h-100p" style="border: 1px solid #ddd"></div>
+        <div
+          v-for="item in 50"
+          class="timeItem flex-0 h-100p"
+          style="border: 1px solid #ddd"
+        ></div>
       </div>
     </div>
   </div>
+  <ResizeSlide />
 </template>
 
 <script>
-import {reactive, defineComponent} from 'vue'
+import { reactive, defineComponent } from "vue";
+import ResizeSlide from "@/components/resize-slide/index.vue";
 
 export default defineComponent({
   components: {
+    ResizeSlide,
   },
   setup() {
-    const state = reactive({})
+    const state = reactive({});
 
     return {
-      state
-    }
-  }
-})
+      state,
+    };
+  },
+});
 </script>
 
 <style lang="less" scoped>
@@ -46,11 +52,10 @@ export default defineComponent({
   }
 }
 .g-scroll {
-  background:
-        linear-gradient(#fff, transparent 100%),
-        linear-gradient(90deg, rgba(0, 0, 0, .3), transparent 100%);
-    background-size: 5px 80px;
-    background-repeat: no-repeat;
-    background-attachment: local, scroll;
+  background: linear-gradient(#fff, transparent 100%),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.3), transparent 100%);
+  background-size: 5px 80px;
+  background-repeat: no-repeat;
+  background-attachment: local, scroll;
 }
 </style>
