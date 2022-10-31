@@ -1,25 +1,31 @@
 <template>
-  <div class="wrap flex">
-    <div class="left">
-      <div class="col bg-gray-50">helo</div>
-    </div>
-    <div class="right overflow-auto scrollbar">
-      <div class="time flex items-center">
-        <div v-for='item in 50' class="timeItem flex-0">{{item}}</div>
-        
+  <div>
+    <div class="wrap flex">
+      <div class="left">
+        <div class="col bg-gray-50">helo</div>
       </div>
-      <div class="flex items-center" style="height: 26px">
-        <div v-for='item in 50' class="timeItem flex-0 h-100p" style="border: 1px solid #ddd"></div>
+      <div class="right overflow-auto scrollbar">
+        <div class="time flex items-center">
+          <div v-for='item in 50' class="timeItem flex-0">{{item}}</div>
+    
+        </div>
+        <div class="flex items-center" style="height: 26px">
+          <div v-for='item in 50' class="timeItem flex-0 h-100p" style="border: 1px solid #ddd"></div>
+        </div>
       </div>
     </div>
+
+    <Slide />
   </div>
 </template>
 
 <script>
 import {reactive, defineComponent} from 'vue'
+import Slide from './slide.vue'
 
 export default defineComponent({
   components: {
+    Slide
   },
   setup() {
     const state = reactive({})
