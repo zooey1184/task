@@ -12,27 +12,12 @@ const microRoutes = [
         name: SYSTEM,
         children: [
           {
-            title: '项目管理',
-            key: 'project',
-            icon: 'FolderOpenOutlined',
-            children: [
-              {
-                path: 'gantt',
-                name: 'gantt',
-                icon: 'FileTextOutlined',
-                component: () => import('@/views/project/gante.vue'),
-                meta: {title: '任务甘特' }
-              },
-              {
-                path: 'kanban',
-                name: 'kanban',
-                icon: 'FileTextOutlined',
-                component: () => import('@/views/project/kanban.vue'),
-                meta: {title: '任务看板' }
-              },
-            ]
+            path: 'overview',
+            name: 'overview',
+            icon: 'DashboardOutlined',
+            component: () => import('@/views/overview/index.vue'),
+            meta: {title: '实时概览' }
           },
-          
         ]
       },
     ],

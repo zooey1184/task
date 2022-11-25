@@ -13,14 +13,7 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      '/api':{
-        target: 'http://localhost:3010',
-        changeOrigin: true,
-      },
-      "/admin": {
-        target: 'http://47.110.129.224:9999',
-        changeOrigin: true
-      }
+      
     }
   },
   build: {

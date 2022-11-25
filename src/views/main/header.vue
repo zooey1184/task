@@ -1,7 +1,7 @@
 <template>
   <div class="flex items-center h-100p p-8 justify-between">
     <div>
-      <MenuFoldOutlined @click="handleCloseMenu" />
+      <!-- <MenuFoldOutlined @click="handleCloseMenu" /> -->
     </div>
     <div>
       <a-dropdown>
@@ -53,7 +53,6 @@ export default defineComponent({
       console.log("changepwd");
     };
     const handleClick = (e) => {
-      console.log(e);
       if (e.key === "logout") {
         handleLogout();
       } else if (e.key === "resetPwd") {

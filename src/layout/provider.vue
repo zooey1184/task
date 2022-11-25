@@ -76,9 +76,9 @@ export default defineComponent({
   setup(props, { emit, expose }) {
     const layoutRef = ref();
     const state = reactive({
-      layout: "lr", // tb 上下布局  lr 左右布局
+      layout: "tb", // tb 上下布局  lr 左右布局
       visible: false,
-      theme: "dark",
+      theme: "light",
       siderCollapse: false,
     });
     const handleOpenDrawer = () => {

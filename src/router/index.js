@@ -1,9 +1,10 @@
 import { createWebHashHistory, createRouter } from 'vue-router'
 import {Button, notification} from 'ant-design-vue'
 import {h} from 'vue'
-import store from '../stores'
+// import store from '../stores'
 import { realRoutes } from './routes'
 import Page from '@/views/main'
+import { useNavStore } from '../stores/nav'
 
 const _routes = []
 
@@ -16,21 +17,13 @@ realRoutes.forEach(item => {
   })
 })
 
-console.log(_routes, '.==');
+
 const router = createRouter({
   history: createWebHashHistory(),
   routes: [
     {
       path: '/',
-      component: () => import('@/views/main'),
-      children: [
-        {
-          path: 'home',
-          name: 'home',
-          component: () => import('@/views/home/index.vue'),
-          meta: {title: '首页'}
-        },
-      ]
+      redirect: '/overview'
     },
     ..._routes,
     {
@@ -77,14 +70,24 @@ router.onError((error) => {
 // 设置页面是否缓存
 router.beforeEach((to, from, next) => {
 
-  let t = store.state.keepAlive
-  const _routes = store.state.routes || {}
-  if (!_routes[to.fullPath] && to.meta?.title ) {
-    _routes[to.name] = to
+  // let t = store.state.keepAlive
+  let t = []
+  
+  const _nav = useNavStore()
+  const _navRoutes = _nav.routes
+  if (!_navRoutes[to.fullPath] && to.meta?.title) {
+    _nav.setItem(to.name, to)
   }
-  store.dispatch('set_data', {
-    routes: _routes
-  })
+ 
+
+
+  // const _routes = store.state.routes || {}
+  // if (!_routes[to.fullPath] && to.meta?.title ) {
+  //   _routes[to.name] = to
+  // }
+  // store.dispatch('set_data', {
+  //   routes: _routes
+  // })
 
   if (to.meta.cacheLast) {
     t.push(from.name)
@@ -111,7 +114,7 @@ router.beforeEach((to, from, next) => {
     }
   }
 
-  store.dispatch('set_keepAlive', t)
+  // store.dispatch('set_keepAlive', t)
 
   if (from?.meta?.refresh) {
     refreshEventMap[from.name] = from?.meta?.refresh

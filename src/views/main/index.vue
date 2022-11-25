@@ -1,8 +1,8 @@
 <template>
   <Layout :siderWidth="250" headerTheme="light">
     <template #logo="{ collapsed }">
-      <div class="color-white logoWrap">
-        <div class="ml-16 adminTip" v-if="!collapsed">TASK管理系统</div>
+      <div class="logoWrap">
+        <div class="ml-16 adminTip" v-if="!collapsed">数据看板</div>
       </div>
     </template>
     <template #header>
