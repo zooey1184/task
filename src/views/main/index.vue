@@ -16,9 +16,9 @@
       </div>
     </template>
     <div class="h-100p flex flex-col">
-      <div class="flex-0">
+      <!-- <div class="flex-0">
         <Navs />
-      </div>
+      </div> -->
       <div class="flex-1 h-100p overflow-auto">
         <router-view></router-view>
       </div>
