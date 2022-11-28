@@ -16,7 +16,6 @@
               <PoweroffOutlined />
               退出
             </a-menu-item>
-            <a-menu-item key="resetPwd"> 修改密码 </a-menu-item>
           </a-menu>
         </template>
       </a-dropdown>
@@ -55,8 +54,6 @@ export default defineComponent({
     const handleClick = (e) => {
       if (e.key === "logout") {
         handleLogout();
-      } else if (e.key === "resetPwd") {
-        handleChangePwd();
       }
     };
     return {

@@ -38,10 +38,10 @@
             <ChartCard chartType='bar' />
           </a-col>
           <a-col :xxxl='12' :xxl='12' :xl='12' :lg='24' :md='24'>
-            <ChartCard />
+            <ChartCard chartType='barH' />
           </a-col>
           <a-col :xxxl='12' :xxl='12' :xl='12' :lg='24' :md='24'>
-            <ChartCard />
+            <ChartCard chartType='area' />
           </a-col>
         </a-row>
       </div>

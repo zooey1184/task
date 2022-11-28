@@ -15,8 +15,36 @@ const microRoutes = [
             path: 'overview',
             name: 'overview',
             icon: 'DashboardOutlined',
-            component: () => import('@/views/overview/index.vue'),
+            component: () => import('@/views/data-kanban/overview/index.vue'),
             meta: {title: '实时概览' }
+          },
+          {
+            path: 'paid',
+            name: 'paid',
+            icon: 'MoneyCollectOutlined',
+            component: () => import('@/views/data-kanban/paid/index.vue'),
+            meta: {title: '付费看板' }
+          },
+          {
+            path: 'district',
+            name: 'district',
+            icon: 'UngroupOutlined',
+            component: () => import('@/views/data-kanban/district/index.vue'),
+            meta: {title: '区服看板' }
+          },
+          {
+            path: 'retain',
+            name: 'retain',
+            icon: 'FileTextOutlined',
+            component: () => import('@/views/data-kanban/retain/index.vue'),
+            meta: {title: '留存看板' }
+          },
+          {
+            path: 'mine',
+            name: 'mine',
+            icon: 'SolutionOutlined',
+            component: () => import('@/views/data-kanban/mine/index.vue'),
+            meta: {title: '我的看板' }
           },
         ]
       },

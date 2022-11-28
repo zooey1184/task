@@ -1,6 +1,6 @@
 <template>
-  <div class="p-16">
-    <div ref="chartRef"></div>
+  <div class="p-16" style="height: 100%">
+    <div style="height: 100%" ref="chartRef"></div>
   </div>
 </template>
 
@@ -245,7 +245,7 @@ import { Chart } from '@antv/g2';
           container: chartRef.value,
           autoFit: true,
           height: props.height,
-          appendPadding: 25
+          appendPadding: 10
           // padding: [80, 50, 20, 50]
         })
 
