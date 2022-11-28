@@ -104,8 +104,10 @@ export default {
             breadcrumbName: item.breadcrumbName || item.name,
           });
         });
-        return { props: { routes: _breadcrumb } };
+        // return { props:  };
+        return { routes: _breadcrumb }
       } else {
+        // console.log(router.getRoutes())
         return undefined;
       }
     });

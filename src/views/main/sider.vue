@@ -11,7 +11,6 @@
 <script>
 import { computed, defineComponent, onBeforeMount, reactive, watch } from "vue";
 import { CrownOutlined } from "@ant-design/icons-vue";
-import { getMenu } from "@/api/menu";
 import Menu from "@/components/menu";
 import { useRouter } from "vue-router";
 import { systemMenu } from "@/router/routes";
@@ -71,19 +70,6 @@ export default defineComponent({
         immediate: true,
       }
     );
-
-    onBeforeMount(() => {
-      // getMenu().then((res) => {
-      //   state.menuList = res;
-      //   state.active = [res[0].children[0].key];
-      // });
-      state.menuList = [
-        {
-          title: "用户",
-          key: "user",
-        },
-      ];
-    });
 
     return {
       state,

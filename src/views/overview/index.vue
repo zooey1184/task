@@ -1,6 +1,16 @@
 <template>
   <view-wrap>
     <div class="p-16">
+      <!-- <a-breadcrumb class="mb-8">
+        <a-breadcrumb-item href="">
+          <home-outlined />
+          <span>数据看板</span>
+        </a-breadcrumb-item>
+        <a-breadcrumb-item href="">
+          <DashboardOutlined />
+          <span>实时概览</span>
+        </a-breadcrumb-item>
+      </a-breadcrumb> -->
       <div class="p-16 bg-white">
         <div class="flex items-center justify-between  mb-16">
           <div class="color-blue font-size-12">注: 当前游戏服务器位于西五区, 东八区(中国)查看存在12个小时时差</div>
@@ -43,13 +53,14 @@
 import {reactive, defineComponent, onMounted} from 'vue'
 import TitleCard from './title-card.vue'
 import ChartCard from './chart-card.vue'
-import { SearchOutlined, ReloadOutlined } from '@ant-design/icons-vue'
+import { SearchOutlined, ReloadOutlined, DashboardOutlined, HomeOutlined } from '@ant-design/icons-vue'
 
 export default defineComponent({
   components: {
     TitleCard,
     ChartCard,
     SearchOutlined,
+    DashboardOutlined, HomeOutlined,
     ReloadOutlined
   },
   setup() {
